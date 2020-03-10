@@ -3,13 +3,33 @@
 </template>
 
 <script>
+    import loadScriptOnce from 'load-script-once';
     export default {
         name: "Map",
+        data() {
+
+        },
         mounted() {
+            // loadScriptOnce(`//dapi.kakao.com/v2/maps/sdk.js?appkey=7c8b78578a123cad363d0029fc147776`)
+            // .then(() => {
+            //     this.openKakakoMap()
+            // })
+            // loadScriptOnce(`//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=7c8b78578a123cad363d0029fc147776`)
+            //     .then(() => {
+            //         kakao.maps.load(() => {
+            //             this.render();
+            //             this.bindEvents();
+            //             this.$emit('load', this.map);
+            //         });
+            //     })
+            //     .catch(err => {
+            //         console.error(err);
+            //     });
             this.openKakakoMap()
         },
         methods: {
             openKakakoMap() {
+                console.log( "__KENNY__ openKakakoMap()")
                 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
                 var options = { //지도를 생성할 때 필요한 기본 옵션
                     center: new kakao.maps.LatLng(37.56682, 126.97865),
@@ -29,6 +49,29 @@
                     position: new kakao.maps.LatLng(37.56682, 126.97865), // 마커의 좌표
                     map: map // 마커를 표시할 지도 객체
                 });
+
+                // 지도에 원을 표시한다
+                var circle = new kakao.maps.Circle({
+                    map: map, // 원을 표시할 지도 객체
+                    center : new kakao.maps.LatLng(37.56782, 126.97665), // 지도의 중심 좌표
+                    radius : 50, // 원의 반지름 (단위 : m)
+                    fillColor: '#FF0000', // 채움 색
+                    fillOpacity: 0.5, // 채움 불투명도
+                    strokeWeight: 3, // 선의 두께
+                    strokeColor: '#FF0000', // 선 색
+                    strokeOpacity: 0.9, // 선 투명도
+                    strokeStyle: 'solid' // 선 스타일
+                });
+
+                var places = new kakao.maps.services.Places();
+
+                var callback = function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        console.log(result);
+                    }
+                };
+
+                places.keywordSearch('판교 치킨', callback);
             }
         }
     }
