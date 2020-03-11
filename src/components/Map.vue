@@ -1,7 +1,17 @@
 <template>
     <div>
         <div id="map" style="width:750px;height:750px;"></div>
-        <button>버튼1</button>
+        <label>
+            <input type="text"
+                   v-model="search"
+                   @keyup.enter="changeSearch"
+            >
+        </label>
+        <button @click="changeSearch"
+                @keyup.enter="changeSearch"
+        >
+            검색
+        </button>
     </div>
 
 </template>
@@ -21,6 +31,7 @@
                 marker: "",
                 place:"",
                 bounds: "",
+                search: "",
             }
         },
         mounted() {
@@ -50,7 +61,7 @@
                 // 지도에 확대 축소 컨트롤을 생성한다
                 this.zoomControl = new kakao.maps.ZoomControl();
                 //
-                // // 지도의 우측에 확대 축소 컨트롤을 추가한다
+                // 지도의 우측에 확대 축소 컨트롤을 추가한다
                 this.map.addControl(this.zoomControl, kakao.maps.ControlPosition.RIGHT);
 
                 // 장소 검색 객체를 생성합니다
@@ -58,6 +69,11 @@
 
                 // 키워드로 장소를 검색합니다
                 this.ps.keywordSearch('판교 맛집', this.placesSearchCB);
+            },
+            changeSearch() {
+                console.log( '__KENNY__ changeSearch() START!! : ' + this.search )
+
+                this.ps.keywordSearch(this.search, this.placesSearchCB);
             },
             placesSearchCB(data, status, pagination) {
                 console.log( '__KENNY__ placesSearchCB() START!!')
