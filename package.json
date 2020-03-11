@@ -11,7 +11,8 @@
     "core-js": "^3.6.4",
     "load-script-once": "^2.0.1",
     "vue": "^2.6.11",
-    "vue-daum-map": "^1.0.15"
+    "vue-daum-map": "^1.0.15",
+    "vue-material": "^1.0.0-beta-11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
