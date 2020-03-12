@@ -1,12 +1,14 @@
 <template>
-  <Map></Map>
+  <div>
+    <Main></Main>
+  </div>
 </template>
 
 <script>
-import Map from "./components/Map";
+import Main from "./components/Main";
 export default {
   name: 'App',
-  components: {Map},
+  components: {Main},
 }
 </script>
 
